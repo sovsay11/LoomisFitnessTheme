@@ -292,6 +292,11 @@ function twentynineteen_colors_css_wrap() {
 }
 add_action( 'wp_head', 'twentynineteen_colors_css_wrap' );
 
+function user_login_redirect( $redirect_to, $request, $user  ) {
+	return ( is_array( $user->roles ) && in_array( 'administrator', $user->roles ) ) ? site_url("admin-main-page") : site_url();
+}
+add_filter( 'login_redirect', 'user_login_redirect', 10, 3 );
+
 /**
  * SVG Icons class.
  */
