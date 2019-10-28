@@ -8,12 +8,29 @@ function dbConnect(){
 // connect to the DB
 function workoutQuery(){
 	$sql = "SELECT * FROM wp_workout_names";
-	
+
 	$GLOBALS['result'] = dbConnect()->query($sql);
 }
 
 function saveWorkout($miles){
     echo($miles);
+    echo(" Workout saved! (Not really)");
     // insert statement goes here
+}
+
+function saveClientChanges(){
+    echo("Changes saved! (Not really)");
+    // insert statement goes here
+}
+
+function clientQuery($command, $constraint){
+    if ($command == "all") {
+        $sql = "SELECT * FROM user";    
+    }
+    elseif ($command == "specific") {
+        $sql = "SELECT * FROM user WHERE userID = $constraint";
+    }
+
+    $GLOBALS['result'] = dbConnect()->query($sql);
 }
 ?>

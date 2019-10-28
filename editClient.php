@@ -1,69 +1,106 @@
-<?php /* Template Name: Add Workout Copy*/
+<?php /* Template Name: Edit Client*/
 
+// connect to the DB
 include("databaseConnection.php");
 
+// check the post from the previous page
 if ( ! empty( $_POST ) ) {
-	// definitely need to do additional data scrubbing here, will handle later
-	// echo($_POST["miles"]);
-	saveWorkout($_POST["miles"]);
-    echo("Session saved!");
+    // checks which client is selected
+    /*
+    foreach($_POST as $key=>$post_data){
+        echo "You posted:" . $key . " = " . $post_data . "<br>";
+    }
+    */
+
+    // show all the POST info, useful for other requests
+    // print_r($_POST);
+
+    // sets the client id
+    $clientID = $_POST['client'];
+
+    // check if the submit button is hit, then save the data
+    if(array_key_exists('clientConfirm',$_POST)){
+        saveClientChanges();
+     }
 }
+
+//clientQuery();
+//$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+//printf ("%s (%s)\n",$row["userID"],$row["firstName"]);
+//echo($row['firstName'].$row['lastName']);
 
 get_header();
 ?>
 
 <form method="post">
-	<label for="session_num">Session Number:</label>
-	<input type="date" name="session" id="session_num">
-	<!--Need to code in the date or auto incrementing session number to be automatically filled out, drop down calendar works for now.-->
-	<br>
-	<br>
-	<label for="miles">Aerobic Miles:</label>
-	<input type="number" name="miles" id="miles">
+    <fieldset>
+		<legend>Client Info</legend>
+		<label for="client">Select Client</label>
 
-	<label for="aerobic_type">Aerobic Type:
-		<input type="radio" name="aerobic_type" id="running">
-		<label for="running">Running</label>
-		<input type="radio" name="aerobic_type" id="biking">
-		<label for="biking">Biking</label>
-	</label>
-	<br>
-	<br>
-
-	<!--WORKOUT 1-->
-	<fieldset>
-		<legend>Workout 1:</legend>
-
-		<input type="checkbox" name="workout_complete" id="workout_complete">
-
-		<label for="workout1">Workout 1:</label>
-
-		<select name="Workout 1">
+		<select name="client">
 		<?php
-		workoutQuery();
+        clientQuery("specific", $clientID);
+        
+        $mainArray = array();
+
+        // grab the data from the 
         while ($testArray=mysqli_fetch_array($result))
         {
-            echo "<option value='".$testArray['workout_name_ID']."'>".$testArray['workout_name']."</option>";
+            $mainArray[] = $testArray;
+            // select option, will remove later
+            echo "<option value='".$testArray['userID']."'>".$testArray['firstName'].' '.$testArray['lastName']."</option>";
+            // this sets the user id value to the html side
+            if ($testArray['userID'] == $clientID) {
+                $test = $testArray['firstName'].' '.$testArray['lastName'];
+            }
         }
-        // use as template
-        // echo "<option value='something'>working!</option>";
+
+        // might want to create a function for this
+        // this sets the values
+        $name = $mainArray[0]['firstName'].' '.$mainArray[0]['lastName'];
+        $email = $mainArray[0]['Email'];
+        $phone = $mainArray[0]['phoneNumber'];
+        $hFeet = $mainArray[0]['heightFeet'];
+        $hInches = $mainArray[0]['heightInches'];
+        $weight = $mainArray[0]['uWeight'];
+        $bodyFat = $mainArray[0]['bodyFat'];
 		?>
 		</select>
 
-		<br>
-		<br>
-		<label for="workout1_weight">Workout 1 Weight:</label>
-		<input type="number" name="workout1_weight" id="workout1_weight">
-		<!--Increase weight next session?-->
-		<input type="checkbox" name="increase_weight" id="increase_weight">
-		<label for="increase_weight">Increase weight next workout session</label>
-		<br>
-		<br>
-		<label for="workout1_reps">Workout 1 Reps:</label>
-		<input type="number" name="workout1_reps" id="workout1_reps">
-		<!--Increase reps next session?-->
-		<input type="checkbox" name="increase_reps" id="increase_reps">
-		<label for="increase_reps">Increase reps next workout session</label>
+        <br>
+        <label for="clientName">Name:</label>
+        <input type="text" name="clientName" id="clientName" value="<?=$name?>">
+        <br>
+
+        <label for="clientEmail">Email:</label>
+        <input type="email" name="clientEmail" id="clientEmail" value="<?=$email?>">
+        <br>
+        
+        <label for="clientPhone">Phone:</label>
+        <input type="text" name="clientPhone" id="clientPhone" value="<?=$phone?>">
+        <br>
+
+        <label for="heightFeet">Height (feet):</label>
+        <input type="number" name="heightFeet" id="heightFeet" value="<?=$hFeet?>">
+        <br>
+
+        <label for="heightInches">Height (inches):</label>
+        <input type="number" name="heightInches" id="heightInches" value="<?=$hInches?>">
+        <br>
+
+        <label for="weight">Weight:</label>
+        <input type="number" name="weight" id="weight" value="<?=$weight?>">
+        <br>
+
+        <label for="bodyFat">Body fat:</label>
+        <input type="number" name="bodyFat" id="bodyFat" value="<?=$bodyFat?>">
+        <br>
+
+        <label for="clientName">Client Name:</label>
+        <button type="submit" name="clientConfirm" value="clientConfirm">Confirm Changes</button>
+        <br>
+
+    </fieldset>
 </form>
 
 <?php get_footer(); ?>

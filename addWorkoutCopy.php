@@ -5,9 +5,12 @@ include("databaseConnection.php");
 if ( ! empty( $_POST ) ) {
 	// definitely need to do additional data scrubbing here, will handle later
 	// echo($_POST["miles"]);
-	saveWorkout($_POST["miles"]);
-    echo("Session saved!");
+	// saveWorkout($_POST["miles"]);
 }
+
+if(array_key_exists('saveWorkout',$_POST)){
+	saveWorkout(1);
+ }
 
 get_header();
 ?>
@@ -149,7 +152,7 @@ get_header();
 	<br>
 	<br>
 	<!--Need to program the button "onclick" still-->
-	<button type="submit" value="Submit">Save Workout</button>
+	<button type="submit" value="saveWorkout" name="saveWorkout">Save Workout</button>
 </form>
 
 <?php get_footer(); ?>
