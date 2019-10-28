@@ -1,17 +1,18 @@
 <?php /* Template Name: Add Workout Copy*/
 
-function connect(){
-	$connection = new MySQLi('localhost', 'root', '', 'loomisfitness');
+include("databaseConnection.php");
 
-	$sql = "SELECT * FROM wp_workout_names";
-	
-	$GLOBALS['result'] = $connection->query($sql);
+if ( ! empty( $_POST ) ) {
+	// definitely need to do additional data scrubbing here, will handle later
+	// echo($_POST["miles"]);
+	saveWorkout($_POST["miles"]);
+    echo("Session saved!");
 }
 
 get_header();
 ?>
 
-<form>
+<form method="post">
 	<label for="session_num">Session Number:</label>
 	<input type="date" name="session" id="session_num">
 	<!--Need to code in the date or auto incrementing session number to be automatically filled out, drop down calendar works for now.-->
@@ -39,11 +40,10 @@ get_header();
 
 		<select name="Workout 1">
 		<?php
-		connect();
+		workoutQuery();
         while ($testArray=mysqli_fetch_array($result))
         {
             echo "<option value='".$testArray['workout_name_ID']."'>".$testArray['workout_name']."</option>";
-            // $select.='<option value="'.$rs['id'].'">'.$rs['name'].'</option>';
         }
         // use as template
         // echo "<option value='something'>working!</option>";
@@ -79,7 +79,7 @@ get_header();
 
 		<select name="workout2">
 			<?php
-			connect();
+			workoutQuery();
 			while ($testArray=mysqli_fetch_array($result))
 			{
 				echo "<option value='".$testArray['workout_name_ID']."'>".$testArray['workout_name']."</option>";
@@ -117,7 +117,7 @@ get_header();
 
 		<select name="workout3">
 			<?php
-			connect();
+			workoutQuery();
 			while ($testArray=mysqli_fetch_array($result))
 			{
 				echo "<option value='".$testArray['workout_name_ID']."'>".$testArray['workout_name']."</option>";
@@ -149,7 +149,7 @@ get_header();
 	<br>
 	<br>
 	<!--Need to program the button "onclick" still-->
-	<button type="button" onclick="SAVE EVERYTHING TO DATABASE">Save Workout</button>
+	<button type="submit" value="Submit">Save Workout</button>
 </form>
 
 <?php get_footer(); ?>
