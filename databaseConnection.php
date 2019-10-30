@@ -7,7 +7,7 @@ function dbConnect(){
 
 // connect to the DB
 function workoutQuery(){
-	$sql = "SELECT * FROM wp_workout_names";
+	$sql = "SELECT * FROM exercises";
 
 	$GLOBALS['result'] = dbConnect()->query($sql);
 }
@@ -15,12 +15,12 @@ function workoutQuery(){
 function saveWorkout($miles){
     echo($miles);
     echo(" Workout saved! (Not really)");
-    // insert statement goes here
+    // update statement goes here
 }
 
 function saveClientChanges(){
     echo("Changes saved! (Not really)");
-    // insert statement goes here
+    // update statement goes here
 }
 
 function clientQuery($command, $constraint){

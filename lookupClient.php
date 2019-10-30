@@ -28,7 +28,10 @@ get_header();
 
         <br>
 
-        <button type="submit" value="ClientSelect">Choose Client</button>
+        <button type="submit" value="ClientSelect">Edit Client</button>
+        <br>
+        <br>
+        <button type="submit" value="ClientWorkout">Add Workout</button>
 
     </fieldset>
 </form>

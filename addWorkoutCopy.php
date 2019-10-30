@@ -67,6 +67,13 @@ get_header();
 		<!--Increase reps next session?-->
 		<input type="checkbox" name="increase_reps" id="increase_reps">
 		<label for="increase_reps">Increase reps next workout session</label>
+		<br>
+		<br>
+		<label for="workout1_sets">Workout 1 Sets:</label>
+		<input type="number" name="workout1_sets" id="workout1_sets">
+		<!--Increase reps next session?-->
+		<input type="checkbox" name="increase_sets" id="increase_sets">
+		<label for="increase_sets">Increase sets next workout session</label>
 
 	</fieldset>
 	<br>
@@ -106,6 +113,14 @@ get_header();
 		<!--Increase reps next session?-->
 		<input type="checkbox" name="increase_reps" id="increase_reps">
 		<label for="increase_reps">Increase reps next workout session</label>
+
+		<br>
+		<br>
+		<label for="workout2_sets">Workout 2 Sets:</label>
+		<input type="number" name="workout2_sets" id="workout2_sets">
+		<!--Increase reps next session?-->
+		<input type="checkbox" name="increase_sets" id="increase_sets">
+		<label for="increase_sets">Increase sets next workout session</label>
 	</fieldset>
 	<br>
 	<br>
@@ -144,6 +159,14 @@ get_header();
 		<!--Increase reps next session?-->
 		<input type="checkbox" name="increase_reps" id="increase_reps">
 		<label for="increase_reps">Increase reps next workout session</label>
+
+		<br>
+		<br>
+		<label for="workout3_sets">Workout 3 Sets:</label>
+		<input type="number" name="workout3_sets" id="workout3_sets">
+		<!--Increase reps next session?-->
+		<input type="checkbox" name="increase_sets" id="increase_sets">
+		<label for="increase_sets">Increase sets next workout session</label>
 	</fieldset>
 	<br>
 	<br>
