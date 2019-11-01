@@ -1,7 +1,7 @@
 <?php /* Template Name: Edit Client*/
 
 // connect to the DB
-include("databaseConnection.php");
+include("loomFunctions.php");
 
 // check the post from the previous page
 if ( ! empty( $_POST ) ) {
@@ -39,7 +39,7 @@ get_header();
 
 		<select name="client">
 		<?php
-        clientQuery("specific", $clientID);
+        showAll("specific", $clientID);
         
         $mainArray = array();
 

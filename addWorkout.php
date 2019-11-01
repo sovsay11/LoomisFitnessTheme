@@ -1,6 +1,6 @@
-<?php /* Template Name: Add Workout Copy*/
+<?php /* Template Name: Add Workout*/
 
-include("databaseConnection.php");
+include("loomFunctions.php");
 
 if ( ! empty( $_POST ) ) {
 	// definitely need to do additional data scrubbing here, will handle later
@@ -8,17 +8,18 @@ if ( ! empty( $_POST ) ) {
 	// saveWorkout($_POST["miles"]);
 }
 
+// all the logic for saving, make sure we have the fields set
 if(array_key_exists('saveWorkout',$_POST)){
 	saveWorkout(1);
- }
+}
 
 get_header();
 ?>
 
 <form method="post">
 	<label for="session_num">Session Number:</label>
-	<input type="date" name="session" id="session_num">
-	<!--Need to code in the date or auto incrementing session number to be automatically filled out, drop down calendar works for now.-->
+	<input type=int name="session" id="session_num">
+	<!--Need to code in the dauto incrementing session number to be automatically filled out-->
 	<br>
 	<br>
 	<label for="miles">Aerobic Miles:</label>

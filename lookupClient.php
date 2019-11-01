@@ -1,24 +1,26 @@
 <?php /* Template Name: Lookup Client*/
 
-include("databaseConnection.php");
+include("loomFunctions.php");
 
 // don't need this here, I think
+/*
 if ( ! empty( $_POST ) ) {
     echo("Client lookup!");
     echo($_POST['client']);
 }
+*/
 
 get_header();
 ?>
 
-<form method="post" action=<?=site_url("edit-client")?>>
+<form method="post">
     <fieldset>
 		<legend>Client Info</legend>
 		<label for="client">Select Client</label>
 
 		<select name="client">
 		<?php
-		clientQuery("all", "none");
+		showAll("all", "none");
         while ($testArray=mysqli_fetch_array($result))
         {
             echo "<option value='".$testArray['userID']."'>".$testArray['firstName'].' '.$testArray['lastName']."</option>";
@@ -28,10 +30,10 @@ get_header();
 
         <br>
 
-        <button type="submit" value="ClientSelect">Edit Client</button>
+        <button type="submit" value="ClientEdit" formaction=<?=site_url("edit-client")?>>Edit Client</button>
         <br>
         <br>
-        <button type="submit" value="ClientWorkout">Add Workout</button>
+        <button type="submit" value="ClientWorkout" formaction=<?=site_url("add-workout")?>>Add Workout</button>
 
     </fieldset>
 </form>
