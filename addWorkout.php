@@ -2,15 +2,15 @@
 
 include("loomFunctions.php");
 
-if ( ! empty( $_POST ) ) {
-	// definitely need to do additional data scrubbing here, will handle later
-	// echo($_POST["miles"]);
-	// saveWorkout($_POST["miles"]);
-}
+// definitely need to do additional data scrubbing here, will handle later
+// echo($_POST["miles"]);
+// saveWorkout($_POST["miles"]);
 
 // all the logic for saving, make sure we have the fields set
+// uses the name as the key
 if(array_key_exists('saveWorkout',$_POST)){
-	saveWorkout(1);
+	$values = $_POST;
+	saveWorkout($values);
 }
 
 get_header();
@@ -47,7 +47,7 @@ get_header();
 		workoutQuery();
         while ($testArray=mysqli_fetch_array($result))
         {
-            echo "<option value='".$testArray['workout_name_ID']."'>".$testArray['workout_name']."</option>";
+            echo "<option value='".$testArray['exerciseName']."'>".$testArray['exerciseName']."</option>";
         }
         // use as template
         // echo "<option value='something'>working!</option>";
@@ -93,7 +93,7 @@ get_header();
 			workoutQuery();
 			while ($testArray=mysqli_fetch_array($result))
 			{
-				echo "<option value='".$testArray['workout_name_ID']."'>".$testArray['workout_name']."</option>";
+				echo "<option value='".$testArray['exerciseName']."'>".$testArray['exerciseName']."</option>";
 				// $select.='<option value="'.$rs['id'].'">'.$rs['name'].'</option>';
 			}
 			// use as template
@@ -139,7 +139,7 @@ get_header();
 			workoutQuery();
 			while ($testArray=mysqli_fetch_array($result))
 			{
-				echo "<option value='".$testArray['workout_name_ID']."'>".$testArray['workout_name']."</option>";
+				echo "<option value='".$testArray['exerciseName']."'>".$testArray['exerciseName']."</option>";
 				// $select.='<option value="'.$rs['id'].'">'.$rs['name'].'</option>';
 			}
 			// use as template

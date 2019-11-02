@@ -12,28 +12,31 @@ function workoutQuery(){
 	$GLOBALS['result'] = dbConnect()->query($sql);
 }
 
-function saveWorkout($miles){
-	// ok... this will be a doozy
+function saveWorkout($values){
+	// some way to set the sessionID?
+
+	$miles = $values['miles'];
 
 	$sql = "INSERT INTO workout
 	(
 	'miles',
-	'cardioType', # foreign key
-	'exerciseID', # foreign key
-	'userID', # foreign key
+	'cardioType',
+	'exerciseID', 
+	'userID',
 	'reps',
 	'weight',
 	'sets',
 	'changeRepsNext',
 	'changeWeightNext',
-	'sessionID' # get highest existing sessionID and +1
+	'sessionID'
 	)
-	# replace these values with variables
 	VALUES
 	(
-	2,0,0,4,20,25,3,0,0,1)";
+	1,0,0,4,20,25,3,0,0,1)";
 
-    // echo(" Workout saved! (Not really)");
+	print_r($values);
+
+    echo(" Workout saved! (Not really)");
 }
 
 // this adds an exercise name, will rename later
@@ -52,33 +55,37 @@ function addExerciseName($exercise){
 }
 
 // need to alter this
-function saveClientChanges(){
-	$sql = "UPDATE 'user'
-	(
-	'firstName',
-	'lastName',
-	'Email',
-	'phoneNumber', #change to varchar
-	'Trainer',
-	'heightFeet',
-	'heightInches',
-	'uWeight',
-	'bodyFat')
-	# replace these values with variables
-	VALUES
-	(
-	'Test',
-	'User',
-	'testuser@email.com',
-	5555555555,
-	0,
-	6,
-	2,
-	175,
-	'.09')";
+function saveClientChanges($values){
+	// set the values, since I can't use arrays in mysql, boohoo
+	$NameArray = explode(" ", $values['clientName']);
+	$userID = $values['client'];
+	$firstName = $NameArray[0];
+	$lastName = $NameArray[1];
+	$email = $values['clientEmail'];
+	$phone = $values['clientPhone'];
+	$heightFt = $values['heightFeet'];
+	$heightIn = $values['heightInches'];
+	$weight = $values['weight'];
+	$bodyfat = $values['bodyFat'];
 
-	// echo("Changes saved! (Not really)");
-    // update statement goes here
+	// send the data to the db, really need to switch to PDO O.O
+	$sql = "UPDATE user
+	SET
+	firstName = '$firstName',
+	lastName = '$lastName',
+	Email = '$email',
+	phoneNumber = $phone,
+	Trainer = 0,
+	heightFeet = $heightFt,
+	heightInches = $heightIn,
+	uWeight = $weight,
+	bodyFat = $bodyfat
+	WHERE
+	userID = $userID";
+
+	dbConnect()->query($sql);
+
+	echo("Changes saved! (Not really)");
 }
 
 function showAll($command, $constraint){

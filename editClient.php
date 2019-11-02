@@ -5,39 +5,25 @@ include("loomFunctions.php");
 
 // check the post from the previous page
 if ( ! empty( $_POST ) ) {
-    // checks which client is selected
-    /*
-    foreach($_POST as $key=>$post_data){
-        echo "You posted:" . $key . " = " . $post_data . "<br>";
-    }
-    */
 
-    // show all the POST info, useful for other requests
-    // print_r($_POST);
-
-    // sets the client id
+    // sets the client id from the previous post
     $clientID = $_POST['client'];
 
     // check if the submit button is hit, then save the data
     if(array_key_exists('clientConfirm',$_POST)){
-        saveClientChanges();
-     }
+        $values = $_POST;
+        saveClientChanges($values);
+    }
 }
-
-//clientQuery();
-//$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
-//printf ("%s (%s)\n",$row["userID"],$row["firstName"]);
-//echo($row['firstName'].$row['lastName']);
 
 get_header();
 ?>
-
 <form method="post">
     <fieldset>
+        <br>
+        <button type="submit" name="back" value="back" formaction=<?=site_url("lookup-client")?>>Back to Lookup</button>
 		<legend>Client Info</legend>
-		<label for="client">Select Client</label>
 
-		<select name="client">
 		<?php
         showAll("specific", $clientID);
         
@@ -47,8 +33,6 @@ get_header();
         while ($testArray=mysqli_fetch_array($result))
         {
             $mainArray[] = $testArray;
-            // select option, will remove later
-            echo "<option value='".$testArray['userID']."'>".$testArray['firstName'].' '.$testArray['lastName']."</option>";
             // this sets the user id value to the html side
             if ($testArray['userID'] == $clientID) {
                 $test = $testArray['firstName'].' '.$testArray['lastName'];
@@ -65,7 +49,6 @@ get_header();
         $weight = $mainArray[0]['uWeight'];
         $bodyFat = $mainArray[0]['bodyFat'];
 		?>
-		</select>
 
         <br>
         <label for="clientName">Name:</label>
@@ -99,6 +82,8 @@ get_header();
         <label for="clientName">Client Name:</label>
         <button type="submit" name="clientConfirm" value="clientConfirm">Confirm Changes</button>
         <br>
+
+        <input id="client" name="client" type="hidden" value=<?=$clientID?>>
 
     </fieldset>
 </form>
