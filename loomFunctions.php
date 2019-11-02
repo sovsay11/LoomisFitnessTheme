@@ -13,28 +13,39 @@ function workoutQuery(){
 }
 
 function saveWorkout($values){
-	// some way to set the sessionID?
-
 	$miles = $values['miles'];
+	$userID = $values['client'];
+	$reps = $values['workout1_reps'];
+	$weight = $values['workout1_weight'];
+	$sets = $values['workout1_sets'];
+	$cardioType = $values['aerobic_type'];
+	$changeRepsNext = $values['increase_reps'];
+	$changeWeightNext = $values['increase_weight'];
+	$exerciseID = $values['Workout_1'];
 
-	$sql = "INSERT INTO workout
+	// figure a way out to set this later
+	$sessionID = $values['session'];
+
+	$sql = "INSERT INTO `loomisfitness`.`workout`
 	(
-	'miles',
-	'cardioType',
-	'exerciseID', 
-	'userID',
-	'reps',
-	'weight',
-	'sets',
-	'changeRepsNext',
-	'changeWeightNext',
-	'sessionID'
+	`miles`,
+	`cardioType`, #foreign key
+	`exerciseID`, #foreign key
+	`userID`, #foreign key
+	`reps`,
+	`weight`,
+	`sets`,
+	`changeRepsNext`,
+	`changeWeightNext`,
+	`sessionID` #get highest existing sessionID and +1
 	)
 	VALUES
 	(
-	1,0,0,4,20,25,3,0,0,1)";
+	'$miles','$cardioType','$exerciseID','$userID','$reps','$weight','$sets','$changeRepsNext','$changeWeightNext','$sessionID');";
 
-	print_r($values);
+	dbConnect()->query($sql);
+
+	//print_r($values);
 
     echo(" Workout saved! (Not really)");
 }
@@ -85,7 +96,7 @@ function saveClientChanges($values){
 
 	dbConnect()->query($sql);
 
-	echo("Changes saved! (Not really)");
+	echo("Changes saved!");
 }
 
 function showAll($command, $constraint){

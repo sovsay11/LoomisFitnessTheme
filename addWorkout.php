@@ -6,6 +6,9 @@ include("loomFunctions.php");
 // echo($_POST["miles"]);
 // saveWorkout($_POST["miles"]);
 
+// client ID
+$clientID = $_POST['client'];
+
 // all the logic for saving, make sure we have the fields set
 // uses the name as the key
 if(array_key_exists('saveWorkout',$_POST)){
@@ -26,9 +29,9 @@ get_header();
 	<input type="number" name="miles" id="miles">
 
 	<label for="aerobic_type">Aerobic Type:
-		<input type="radio" name="aerobic_type" id="running">
+		<input type="radio" name="aerobic_type" value="0" id="running">
 		<label for="running">Running</label>
-		<input type="radio" name="aerobic_type" id="biking">
+		<input type="radio" name="aerobic_type" value="1" id="biking">
 		<label for="biking">Biking</label>
 	</label>
 	<br>
@@ -47,7 +50,7 @@ get_header();
 		workoutQuery();
         while ($testArray=mysqli_fetch_array($result))
         {
-            echo "<option value='".$testArray['exerciseName']."'>".$testArray['exerciseName']."</option>";
+            echo "<option value='".$testArray['exerciseID']."'>".$testArray['exerciseName']."</option>";
         }
         // use as template
         // echo "<option value='something'>working!</option>";
@@ -59,21 +62,21 @@ get_header();
 		<label for="workout1_weight">Workout 1 Weight:</label>
 		<input type="number" name="workout1_weight" id="workout1_weight">
 		<!--Increase weight next session?-->
-		<input type="checkbox" name="increase_weight" id="increase_weight">
+		<input type="checkbox" name="increase_weight" id="increase_weight" value="1">
 		<label for="increase_weight">Increase weight next workout session</label>
 		<br>
 		<br>
 		<label for="workout1_reps">Workout 1 Reps:</label>
 		<input type="number" name="workout1_reps" id="workout1_reps">
 		<!--Increase reps next session?-->
-		<input type="checkbox" name="increase_reps" id="increase_reps">
+		<input type="checkbox" name="increase_reps" id="increase_reps" value="1">
 		<label for="increase_reps">Increase reps next workout session</label>
 		<br>
 		<br>
 		<label for="workout1_sets">Workout 1 Sets:</label>
 		<input type="number" name="workout1_sets" id="workout1_sets">
 		<!--Increase reps next session?-->
-		<input type="checkbox" name="increase_sets" id="increase_sets">
+		<input type="checkbox" name="increase_sets" id="increase_sets" value="1">
 		<label for="increase_sets">Increase sets next workout session</label>
 
 	</fieldset>
@@ -125,6 +128,8 @@ get_header();
 	</fieldset>
 	<br>
 	<br>
+
+
 	<!--WORKOUT 3-->
 	<fieldset>
 		<legend>Workout 3:</legend>
@@ -175,15 +180,14 @@ get_header();
 	<input type="number" name="ending_weight" id="ending_weight">
 	<br>
 	<br>
-	<!--Need to program the button "onclick" still-->
+
+	<!--client id save-->
+	<input id="client" name="client" type="hidden" value=<?=$clientID?>>
+
+	
 	<button type="submit" value="saveWorkout" name="saveWorkout">Save Workout</button>
 </form>
 
 <?php get_footer(); ?>
-<!--The exercise name, weight, # of sets, # of reps should be side by side to each other.
-She needs some way to mark that she is going to be increasing either the weight, reps, or both, on the next time that person does that exercise.
-She then needs to mark the day that she actually increases the weight, reps, or both. 
-She needs to be able to do this for any of the exercises that person is doing any given session. 
-We’ll have to brainstorm this one, because I haven’t figured out a good solution for it yet.
-
-Need a checkbox next to each exercise line so that she can mark when it has been completed during the session.-->
+<!--MAJOR ISSUE: JAVASCRIPT WILL BE NEEDED TO DYNAMICALLY ADD WORKOUTS TO THE SESSION. UNTIL THEN
+THE DATABASE QUERIES FOR THE WORKOUTS MUST BE KEPT TO A MINIMUM-->
