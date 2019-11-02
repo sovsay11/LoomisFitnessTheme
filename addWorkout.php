@@ -1,16 +1,12 @@
 <?php /* Template Name: Add Workout*/
 
+// some essential functions
 include("loomFunctions.php");
 
-// definitely need to do additional data scrubbing here, will handle later
-// echo($_POST["miles"]);
-// saveWorkout($_POST["miles"]);
-
-// client ID
+// set the clientID (so we know who we're adding the workout to)
 $clientID = $_POST['client'];
 
-// all the logic for saving, make sure we have the fields set
-// uses the name as the key
+// check if the save button is hit, then save the workout
 if(array_key_exists('saveWorkout',$_POST)){
 	$values = $_POST;
 	saveWorkout($values);

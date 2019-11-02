@@ -1,17 +1,24 @@
 <?php
-// this will connect to the db
+/*
+This page contains all of the functions that help make this entire website work!
+*/
+
+// CONNECT TO THE DB
 function dbConnect(){
     $connection = new MySQLi('localhost', 'root', '', 'loomisfitness');
     return $connection;
 }
 
-// should combine this with something...
+// WILL COMBINE WITH THE MASTER QUERY FUNCTION LATER
+// for now this just grabs all the data from the exercise table
 function workoutQuery(){
 	$sql = "SELECT * FROM exercises";
 
 	$GLOBALS['result'] = dbConnect()->query($sql);
 }
 
+// save a workout, will have to use a WHILE or FOR loop
+// to add many workouts to save typing
 function saveWorkout($values){
 	$miles = $values['miles'];
 	$userID = $values['client'];
@@ -23,7 +30,7 @@ function saveWorkout($values){
 	$changeWeightNext = $values['increase_weight'];
 	$exerciseID = $values['Workout_1'];
 
-	// figure a way out to set this later
+	// FIGURE OUT A WAY TO DO THIS LATER
 	$sessionID = $values['session'];
 
 	$sql = "INSERT INTO `loomisfitness`.`workout`
@@ -43,14 +50,13 @@ function saveWorkout($values){
 	(
 	'$miles','$cardioType','$exerciseID','$userID','$reps','$weight','$sets','$changeRepsNext','$changeWeightNext','$sessionID');";
 
+	// execute the query
 	dbConnect()->query($sql);
-
-	//print_r($values);
 
     echo(" Workout saved! (Not really)");
 }
 
-// this adds an exercise name, will rename later
+// adds an exercise (NOT a workout)
 function addExerciseName($exercise){
 
 	// query prep
@@ -65,7 +71,7 @@ function addExerciseName($exercise){
 	echo("Exercise added!");
 }
 
-// need to alter this
+// saves the client edits
 function saveClientChanges($values){
 	// set the values, since I can't use arrays in mysql, boohoo
 	$NameArray = explode(" ", $values['clientName']);
@@ -79,7 +85,7 @@ function saveClientChanges($values){
 	$weight = $values['weight'];
 	$bodyfat = $values['bodyFat'];
 
-	// send the data to the db, really need to switch to PDO O.O
+	// send the data to the db, really need to switch to PDO
 	$sql = "UPDATE user
 	SET
 	firstName = '$firstName',
@@ -94,11 +100,13 @@ function saveClientChanges($values){
 	WHERE
 	userID = $userID";
 
+	// execute
 	dbConnect()->query($sql);
 
 	echo("Changes saved!");
 }
 
+// this will be the master query command
 function showAll($command, $constraint){
     if ($command == "all") {
         $sql = "SELECT * FROM user";    
@@ -132,6 +140,4 @@ function saveExerciseName($exerciseName){
 	}
 }
 */
-
-
 ?>

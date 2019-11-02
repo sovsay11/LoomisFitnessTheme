@@ -1,14 +1,7 @@
 <?php /* Template Name: Lookup Client*/
 
+// essential functions
 include("loomFunctions.php");
-
-// don't need this here, I think
-/*
-if ( ! empty( $_POST ) ) {
-    echo("Client lookup!");
-    echo($_POST['client']);
-}
-*/
 
 get_header();
 ?>
@@ -20,6 +13,7 @@ get_header();
 
 		<select name="client">
 		<?php
+        // just grab the data from the users table, first and last name
 		showAll("all", "none");
         while ($testArray=mysqli_fetch_array($result))
         {

@@ -1,10 +1,14 @@
 <?php /* Template Name: Add Exercise*/
 
+// include some vital functions
 include("loomFunctions.php");
 
+// header baby
 get_header();
 
+// check if the save button was pressed
 if(array_key_exists('saveExerciseName',$_POST)){
+	// function that saves the exercise info
 	addExerciseName($_POST['exerciseName']);
 }
 

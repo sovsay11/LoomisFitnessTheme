@@ -1,12 +1,12 @@
 <?php /* Template Name: Edit Client*/
 
-// connect to the DB
+// some essential functions
 include("loomFunctions.php");
 
-// check the post from the previous page
+// check the post from the previous page (lookup client)
 if ( ! empty( $_POST ) ) {
 
-    // sets the client id from the previous post
+    // sets the client id from the lookup client page
     $clientID = $_POST['client'];
 
     // check if the submit button is hit, then save the data
