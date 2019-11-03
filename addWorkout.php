@@ -12,12 +12,23 @@ if(array_key_exists('saveWorkout',$_POST)){
 	saveWorkout($values);
 }
 
+// get the highest sessionID value
+// TURN THIS INTO A FUNCTION
+$sessionQuery = getHighestSession($clientID);
+
+$sessionArray = (mysqli_fetch_array($sessionQuery));
+
+$sessionID = $sessionArray['newSessionID'];
+
 get_header();
 ?>
 
 <form method="post">
+	<button type="submit" name="back" value="back" formaction=<?=site_url("lookup-client")?>>Back to Lookup</button>
+	<br>
+	<br>
 	<label for="session_num">Session Number:</label>
-	<input type=int name="session" id="session_num">
+	<input type=int name="session" id="session_num" value="<?=$sessionID?>">
 	<!--Need to code in the dauto incrementing session number to be automatically filled out-->
 	<br>
 	<br>

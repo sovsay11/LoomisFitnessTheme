@@ -17,6 +17,16 @@ function workoutQuery(){
 	$GLOBALS['result'] = dbConnect()->query($sql);
 }
 
+function getHighestSession($userID){
+	$sql = "SELECT IFNULL(MAX(sessionID) + 1, 1) as newSessionID 
+	FROM loomisfitness.workout 
+	WHERE userID = $userID;";
+
+	$sessionID = dbConnect()->query($sql);
+
+	return $sessionID;
+}
+
 // save a workout, will have to use a WHILE or FOR loop
 // to add many workouts to save typing
 function saveWorkout($values){
