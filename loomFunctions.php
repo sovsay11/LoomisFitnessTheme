@@ -63,7 +63,7 @@ function saveWorkout($values){
 	// execute the query
 	dbConnect()->query($sql);
 
-    echo(" Workout saved! (Not really)");
+    echo(" Workout saved!");
 }
 
 // adds an exercise (NOT a workout)
@@ -72,7 +72,7 @@ function addExerciseName($exercise){
 	// query prep
 	$sql = "INSERT INTO exercises
 	(exerciseID, exerciseName)
-	values (1, '$exercise')";
+	values (3, '$exercise')";
 
 	// send the query to the database
 	dbConnect()->query($sql);

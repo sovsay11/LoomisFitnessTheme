@@ -76,7 +76,7 @@ get_header();
         <br>
 
         <label for="bodyFat">Body fat:</label>
-        <input type="number" name="bodyFat" id="bodyFat" value="<?=$bodyFat?>">
+        <input type="number" step=".01" name="bodyFat" id="bodyFat" value="<?=$bodyFat?>">
         <br>
 
         <label for="clientName">Client Name:</label>

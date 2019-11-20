@@ -22,7 +22,6 @@ $sessionID = $sessionArray['newSessionID'];
 
 get_header();
 ?>
-
 <form method="post">
 	<button type="submit" name="back" value="back" formaction=<?=site_url("lookup-client")?>>Back to Lookup</button>
 	<br>
@@ -53,7 +52,7 @@ get_header();
 		<label for="workout1">Workout 1:</label>
 
 		<select name="Workout 1">
-		<?php
+			<?php
 		workoutQuery();
         while ($testArray=mysqli_fetch_array($result))
         {
@@ -191,7 +190,7 @@ get_header();
 	<!--client id save-->
 	<input id="client" name="client" type="hidden" value=<?=$clientID?>>
 
-	
+
 	<button type="submit" value="saveWorkout" name="saveWorkout">Save Workout</button>
 </form>
 
