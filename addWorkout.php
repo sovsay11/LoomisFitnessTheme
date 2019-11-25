@@ -3,7 +3,7 @@
 // some essential functions
 include("loomFunctions.php");
 
-// set the clientID (so we know who we're adding the workout to)
+// set the clientID (so we know who we're adding the workout to), this is also the only post value passed
 $clientID = $_POST['client'];
 
 // check if the save button is hit, then save the workout

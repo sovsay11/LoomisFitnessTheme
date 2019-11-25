@@ -23,13 +23,26 @@ get_header();
         </select>
 
         <br>
+        <br>
 
         <button type="submit" value="ClientEdit" formaction=<?=site_url("edit-client")?>>Edit Client</button>
         <br>
         <br>
+        <button type="submit" value="ClientSummary" formaction=<?=site_url("workout-summary")?>>View Summary</button>
+        <br>
+        <br>
         <button type="submit" value="ClientWorkout" formaction=<?=site_url("add-workout")?>>Add Workout</button>
+        <br>
+        <br>
+        <button type="button" value="ClientDelete" onclick="test()">Delete Client</button>
 
     </fieldset>
 </form>
+
+<script>
+function test() {
+  alert("I am an alert box!");
+}
+</script>
 
 <?php get_footer(); ?>
