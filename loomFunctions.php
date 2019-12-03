@@ -9,10 +9,19 @@ function dbConnect(){
     return $connection;
 }
 
+//Get muscle group to fill dropdown
+function musclegroupQuery(){
+	$sql = "SELECT * FROM musclegroup";
+	//$sql2 = "SELECT mgID FROM musclegroup";
+
+	$GLOBALS['mgresult'] = dbConnect()->query($sql);
+	//$GLOBALS['mgID'] = dbConnect()->query($sql2);
+}
+
 // WILL COMBINE WITH THE MASTER QUERY FUNCTION LATER
 // for now this just grabs all the data from the exercise table
 function workoutQuery(){
-	$sql = "SELECT * FROM exercises";
+	$sql = "SELECT * FROM exercises;";
 
 	$GLOBALS['result'] = dbConnect()->query($sql);
 }
@@ -77,12 +86,12 @@ function saveWorkout($values){
 }
 
 // adds an exercise (NOT a workout)
-function addExerciseName($exercise){
+function addExerciseName($exercise, $muscleID){
 
 	// query prep
 	$sql = "INSERT INTO exercises
-	(exerciseID, exerciseName)
-	values (3, '$exercise')";
+	(exerciseName, musclegroupID)
+	values ('$exercise', '$muscleID')";
 
 	// send the query to the database
 	dbConnect()->query($sql);

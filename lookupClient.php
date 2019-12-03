@@ -3,6 +3,12 @@
 // essential functions
 include("loomFunctions.php");
 
+if(array_key_exists('ClientDelete',$_POST)){
+	$values = $_POST;
+    //saveWorkout($values);
+    print_r($values);
+}
+
 get_header();
 ?>
 
@@ -34,15 +40,8 @@ get_header();
         <button type="submit" value="ClientWorkout" formaction=<?=site_url("add-workout")?>>Add Workout</button>
         <br>
         <br>
-        <button type="button" value="ClientDelete" onclick="test()">Delete Client</button>
+        <button type="submit" value="ClientDelete" name="ClientDelete">Delete Client</button>
 
     </fieldset>
 </form>
-
-<script>
-function test() {
-  alert("I am an alert box!");
-}
-</script>
-
 <?php get_footer(); ?>
