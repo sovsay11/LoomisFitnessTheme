@@ -49,21 +49,71 @@ function getRecentSession($userID) {
 // save a workout, will have to use a WHILE or FOR loop
 // to add many workouts to save typing
 function saveWorkout($values) {
-	$miles=$values['miles'];
-	$userID=$values['client'];
-	$reps=$values['workout1_reps'];
-	$weight=$values['workout1_weight'];
-	$sets=$values['workout1_sets'];
-	$cardioType=$values['aerobic_type'];
-	$changeRepsNext=$values['increase_reps'];
-	$changeWeightNext=$values['increase_weight'];
-	$exerciseID=$values['Workout_1'];
-
-	// FIGURE OUT A WAY TO DO THIS LATER
+	// this will remain constant and only occurs once
 	$sessionID=$values['session'];
+	$userID=$values['client'];
 
+	// occurs only once
+	$cardioType=$values['aerobic_type'];
+	$miles=$values['miles'];
+	$workoutAmount = $values['workoutAmount'];
+
+	for ($i=0; $i < $workoutAmount; $i++) {
+		// this is good
+		$curNum = $i+1;
+		// these values will be changing... should they be in the loop? Yeah... probably
+		$exerciseID=$values['Workout'.$curNum];
+		$weight=$values['workout_weight'.$curNum];
+		$reps=$values['workout_reps'.$curNum];
+		$sets=$values['workout_sets'.$curNum];
+		// increases for the exercises
+		$changeReps=$values['increase_reps'.$curNum];
+		$changeWeight=$values['increase_weight'.$curNum];
+		$changeSets=$values['increase_weight'.$curNum];
+
+		// insert into the workouts table
+		$sql="INSERT INTO `loomisfitness`.`workout`
+		(`miles`,
+		`cardioType`,
+		`exerciseID`,
+		`userID`,
+		`reps`,
+		`weight`,
+		`sets`,
+		`changeRepsNext`,
+		`changeWeightNext`,
+		`date`,
+		`sessionID`)
+		VALUES
+		('$miles' ,
+		'$cardioType',
+		'$exerciseID',
+		'$userID' ,
+		'$reps' ,
+		'$weight',
+		'$sets' ,
+		'$changeReps',
+		'$changeWeight',
+		current_timestamp(),
+		'$sessionID');
+		";
+
+		dbConnect()->query($sql);
+	}
+
+	// these values will be changing... should they be in the loop? Yeah... probably
+	// $exerciseID=$values['Workout_1'];
+	// $weight=$values['workout1_weight'];
+	// $reps=$values['workout1_reps'];
+	// $sets=$values['workout1_sets'];
+	// // increases for the exercises
+	// $changeReps=$values['increase_reps'];
+	// $changeWeight=$values['increase_weight'];
+	// $changeSets=$values['increase_weight'];
+
+	// I will have to put this in a while or for loop to repeat itself
 	$sql="INSERT INTO `loomisfitness`.`workout`
-(`miles`,
+	(`miles`,
 		`cardioType`, #foreign key `exerciseID`, #foreign key `userID`, #foreign key `reps`,
 		`weight`,
 		`sets`,
@@ -72,10 +122,11 @@ function saveWorkout($values) {
 		`sessionID` #get highest existing sessionID and +1) VALUES ('$miles', '$cardioType', '$exerciseID', '$userID', '$reps', '$weight', '$sets', '$changeRepsNext', '$changeWeightNext', '$sessionID');
 	";
 
-	// execute the query
-	dbConnect()->query($sql);
+	// execute the query, also in the while
+	//dbConnect()->query($sql);
 
-	echo(" Workout saved!");
+	// may take this out
+	// echo(" Workout saved!");
 }
 
 // adds an exercise (NOT a workout)

@@ -11,11 +11,11 @@ $values = $_POST;
 
 // check if the save button is hit, then save the workout
 if(array_key_exists('saveWorkout',$_POST)){
-	//saveWorkout($values);
-	print_r($values);
+	saveWorkout($values);
+	//print_r($values);
 }
 elseif(array_key_exists('setWorkoutAmount',$_POST)){
-	print_r($values);
+	//print_r($values);
 	//print($values['workoutAmount']);
 }
 
@@ -27,19 +27,32 @@ $sessionID = $sessionArray['newSessionID'];
 // url setter
 get_header();
 
+/*
+<?php for ($i=1; $i < 11; $i++)
+		{
+			echo "<option value='".$i."'>".$i."</option>";
+		}
+		?>
+		*/
+
 ?>
 <form method="post">
 	<button type="submit" name="back" value="back" formaction=<?=site_url("lookup-client")?>>Back to Lookup</button>
 	<br>
 	<br>
 
-	<button type="submit" name="setWorkoutAmount" onclick="show()">Set workout amount</button>
+	<button type="submit" name="setWorkoutAmount">Set workout amount</button>
 	<select name="workoutAmount">
-		<?php for ($i=1; $i < 11; $i++)
-		{
-			echo "<option value='".$i."'>".$i."</option>";
-		}
-		?>
+		<option value="1" <?php selected( isset($_POST['workoutAmount']) ? $_POST['workoutAmount'] : '', '1' ); ?>>1</option>
+		<option value="2" <?php selected( isset($_POST['workoutAmount']) ? $_POST['workoutAmount'] : '', '2' ); ?>>2</option>
+		<option value="3" <?php selected( isset($_POST['workoutAmount']) ? $_POST['workoutAmount'] : '', '3' ); ?>>3</option>
+		<option value="4" <?php selected( isset($_POST['workoutAmount']) ? $_POST['workoutAmount'] : '', '4' ); ?>>4</option>
+		<option value="5" <?php selected( isset($_POST['workoutAmount']) ? $_POST['workoutAmount'] : '', '5' ); ?>>5</option>
+		<option value="6" <?php selected( isset($_POST['workoutAmount']) ? $_POST['workoutAmount'] : '', '6' ); ?>>6</option>
+		<option value="7" <?php selected( isset($_POST['workoutAmount']) ? $_POST['workoutAmount'] : '', '7' ); ?>>7</option>
+		<option value="8" <?php selected( isset($_POST['workoutAmount']) ? $_POST['workoutAmount'] : '', '8' ); ?>>8</option>
+		<option value="9" <?php selected( isset($_POST['workoutAmount']) ? $_POST['workoutAmount'] : '', '9' ); ?>>9</option>
+		<option value="10" <?php selected( isset($_POST['workoutAmount']) ? $_POST['workoutAmount'] : '', '10' ); ?>>10</option>
 	</select>
 	<br>
 	<br>
@@ -91,14 +104,14 @@ get_header();
 		<br>
 		<br>
 		<label for="workout1_reps">Workout <?=$curNum?> Reps:</label>
-		<input type="number" name="workout1_reps<?=$curNum?>" id="workout1_reps">
+		<input type="number" name="workout_reps<?=$curNum?>" id="workout_reps">
 		<!--Increase reps next session?-->
 		<input type="checkbox" name="increase_reps<?=$curNum?>" id="increase_reps" value="1">
 		<label for="increase_reps">Increase reps next workout session</label>
 		<br>
 		<br>
 		<label for="workout1_sets">Workout <?=$curNum?> Sets:</label>
-		<input type="number" name="workout1_sets<?=$curNum?>" id="workout1_sets">
+		<input type="number" name="workout_sets<?=$curNum?>" id="workout_sets">
 		<!--Increase reps next session?-->
 		<input type="checkbox" name="increase_sets<?=$curNum?>" id="increase_sets" value="1">
 		<label for="increase_sets">Increase sets next workout session</label>
