@@ -16,9 +16,13 @@ $sessionID = $sessionArray['newSessionID'];
 
 //echo ($sessionID);
 
-$sql = "SELECT * FROM workout WHERE sessionID = $sessionID";
+//select by client id
+$sql = "SELECT * FROM workout WHERE userID = $clientID";
+
+// select by session
+//$sql = "SELECT * FROM workout WHERE sessionID = $sessionID";
 $GLOBALS['result'] = dbConnect()->query($sql);
-$recentWorkout=mysqli_fetch_array($result);
+//$recentWorkout=mysqli_fetch_array($result);
 //print_r($recentWorkout);
 
 // what do i want to display? keep it simple, just the most recent workout then
@@ -32,6 +36,7 @@ $recentWorkout=mysqli_fetch_array($result);
     <th>Sets</th>
     <th>Date</th>
   </tr>
+  <?php while($recentWorkout=mysqli_fetch_array($result)):?>
   <tr>
     <td><?=$recentWorkout[11]?></td>
     <td><?=$recentWorkout[1]?></td>
@@ -40,6 +45,7 @@ $recentWorkout=mysqli_fetch_array($result);
     <td><?=$recentWorkout[7]?></td>
     <td><?=$recentWorkout[10]?></td>
   </tr>
+  <?php endwhile?>
 </table>
 
 <?php get_footer(); ?>

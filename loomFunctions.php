@@ -38,7 +38,7 @@ FROM loomisfitness.workout WHERE userID=$userID;
 
 function getRecentSession($userID) {
 	$sql="SELECT IFNULL(MAX(sessionID), 0) as newSessionID 
-FROM loomisfitness.workout WHERE userID=$userID;
+	FROM loomisfitness.workout WHERE userID=$userID;
 	";
 
 	$sessionID=dbConnect()->query($sql);
