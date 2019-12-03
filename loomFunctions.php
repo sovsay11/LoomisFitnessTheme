@@ -4,94 +4,86 @@ This page contains all of the functions that help make this entire website work!
 */
 
 // CONNECT TO THE DB
-function dbConnect(){
-    $connection = new MySQLi('localhost', 'root', '', 'loomisfitness');
-    return $connection;
+function dbConnect() {
+	$connection=new MySQLi('localhost', 'root', '', 'loomisfitness');
+	return $connection;
 }
 
 //Get muscle group to fill dropdown
-function musclegroupQuery(){
-	$sql = "SELECT * FROM musclegroup";
+function musclegroupQuery() {
+	$sql="SELECT * FROM musclegroup";
 	//$sql2 = "SELECT mgID FROM musclegroup";
 
-	$GLOBALS['mgresult'] = dbConnect()->query($sql);
+	$GLOBALS['mgresult']=dbConnect()->query($sql);
 	//$GLOBALS['mgID'] = dbConnect()->query($sql2);
 }
 
 // WILL COMBINE WITH THE MASTER QUERY FUNCTION LATER
 // for now this just grabs all the data from the exercise table
-function workoutQuery(){
-	$sql = "SELECT * FROM exercises;";
+function workoutQuery() {
+	$sql="SELECT * FROM exercises;";
 
-	$GLOBALS['result'] = dbConnect()->query($sql);
+	$GLOBALS['result']=dbConnect()->query($sql);
 }
 
-function getHighestSession($userID){
-	$sql = "SELECT IFNULL(MAX(sessionID) + 1, 1) as newSessionID 
-	FROM loomisfitness.workout 
-	WHERE userID = $userID;";
+function getHighestSession($userID) {
+	$sql="SELECT IFNULL(MAX(sessionID) + 1, 1) as newSessionID 
+FROM loomisfitness.workout WHERE userID=$userID;
+	";
 
-	$sessionID = dbConnect()->query($sql);
+	$sessionID=dbConnect()->query($sql);
 
 	return $sessionID;
 }
 
-function getRecentSession($userID){
-	$sql = "SELECT IFNULL(MAX(sessionID), 0) as newSessionID 
-	FROM loomisfitness.workout 
-	WHERE userID = $userID;";
+function getRecentSession($userID) {
+	$sql="SELECT IFNULL(MAX(sessionID), 0) as newSessionID 
+FROM loomisfitness.workout WHERE userID=$userID;
+	";
 
-	$sessionID = dbConnect()->query($sql);
+	$sessionID=dbConnect()->query($sql);
 
 	return $sessionID;
 }
 
 // save a workout, will have to use a WHILE or FOR loop
 // to add many workouts to save typing
-function saveWorkout($values){
-	$miles = $values['miles'];
-	$userID = $values['client'];
-	$reps = $values['workout1_reps'];
-	$weight = $values['workout1_weight'];
-	$sets = $values['workout1_sets'];
-	$cardioType = $values['aerobic_type'];
-	$changeRepsNext = $values['increase_reps'];
-	$changeWeightNext = $values['increase_weight'];
-	$exerciseID = $values['Workout_1'];
+function saveWorkout($values) {
+	$miles=$values['miles'];
+	$userID=$values['client'];
+	$reps=$values['workout1_reps'];
+	$weight=$values['workout1_weight'];
+	$sets=$values['workout1_sets'];
+	$cardioType=$values['aerobic_type'];
+	$changeRepsNext=$values['increase_reps'];
+	$changeWeightNext=$values['increase_weight'];
+	$exerciseID=$values['Workout_1'];
 
 	// FIGURE OUT A WAY TO DO THIS LATER
-	$sessionID = $values['session'];
+	$sessionID=$values['session'];
 
-	$sql = "INSERT INTO `loomisfitness`.`workout`
-	(
-	`miles`,
-	`cardioType`, #foreign key
-	`exerciseID`, #foreign key
-	`userID`, #foreign key
-	`reps`,
-	`weight`,
-	`sets`,
-	`changeRepsNext`,
-	`changeWeightNext`,
-	`sessionID` #get highest existing sessionID and +1
-	)
-	VALUES
-	(
-	'$miles','$cardioType','$exerciseID','$userID','$reps','$weight','$sets','$changeRepsNext','$changeWeightNext','$sessionID');";
+	$sql="INSERT INTO `loomisfitness`.`workout`
+(`miles`,
+		`cardioType`, #foreign key `exerciseID`, #foreign key `userID`, #foreign key `reps`,
+		`weight`,
+		`sets`,
+		`changeRepsNext`,
+		`changeWeightNext`,
+		`sessionID` #get highest existing sessionID and +1) VALUES ('$miles', '$cardioType', '$exerciseID', '$userID', '$reps', '$weight', '$sets', '$changeRepsNext', '$changeWeightNext', '$sessionID');
+	";
 
 	// execute the query
 	dbConnect()->query($sql);
 
-    echo(" Workout saved!");
+	echo(" Workout saved!");
 }
 
 // adds an exercise (NOT a workout)
-function addExerciseName($exercise, $muscleID){
+function addExerciseName($exercise, $muscleID) {
 
 	// query prep
-	$sql = "INSERT INTO exercises
-	(exerciseName, musclegroupID)
-	values ('$exercise', '$muscleID')";
+	$sql="INSERT INTO exercises
+(exerciseName, musclegroupID) values ('$exercise', '$muscleID')";
 
 	// send the query to the database
 	dbConnect()->query($sql);
@@ -101,33 +93,30 @@ function addExerciseName($exercise, $muscleID){
 }
 
 // saves the client edits
-function saveClientChanges($values){
+function saveClientChanges($values) {
 	// set the values, since I can't use arrays in mysql, boohoo
-	$NameArray = explode(" ", $values['clientName']);
-	$userID = $values['client'];
-	$firstName = $NameArray[0];
-	$lastName = $NameArray[1];
-	$email = $values['clientEmail'];
-	$phone = $values['clientPhone'];
-	$heightFt = $values['heightFeet'];
-	$heightIn = $values['heightInches'];
-	$weight = $values['weight'];
-	$bodyfat = $values['bodyFat'];
+	$NameArray=explode(" ", $values['clientName']);
+	$userID=$values['client'];
+	$firstName=$NameArray[0];
+	$lastName=$NameArray[1];
+	$email=$values['clientEmail'];
+	$phone=$values['clientPhone'];
+	$heightFt=$values['heightFeet'];
+	$heightIn=$values['heightInches'];
+	$weight=$values['weight'];
+	$bodyfat=$values['bodyFat'];
 
 	// send the data to the db, really need to switch to PDO
-	$sql = "UPDATE user
-	SET
-	firstName = '$firstName',
-	lastName = '$lastName',
-	Email = '$email',
-	phoneNumber = $phone,
-	Trainer = 0,
-	heightFeet = $heightFt,
-	heightInches = $heightIn,
-	uWeight = $weight,
-	bodyFat = $bodyfat
-	WHERE
-	userID = $userID";
+	$sql="UPDATE user
+SET firstName='$firstName',
+	lastName='$lastName',
+	Email='$email',
+	phoneNumber=$phone,
+	Trainer=0,
+	heightFeet=$heightFt,
+	heightInches=$heightIn,
+	uWeight=$weight,
+	bodyFat=$bodyfat WHERE userID=$userID";
 
 	// execute
 	dbConnect()->query($sql);
@@ -136,15 +125,40 @@ function saveClientChanges($values){
 }
 
 // this will be the master query command
-function showAll($command, $constraint){
-    if ($command == "all") {
-        $sql = "SELECT * FROM user";    
-    }
-    elseif ($command == "specific") {
-        $sql = "SELECT * FROM user WHERE userID = $constraint";
-    }
+function showAll($command, $constraint) {
+	if ($command=="all") {
+		$sql="SELECT * FROM user";
+	}
 
-    $GLOBALS['result'] = dbConnect()->query($sql);
+	elseif ($command=="specific") {
+		$sql="SELECT * FROM user WHERE userID = $constraint";
+	}
+
+	$GLOBALS['result']=dbConnect()->query($sql);
+}
+
+function setArchive($values, $status) {
+	if ($status=="unarchive") {
+		// update to unarchive
+		$userID=$values['ClientUnarchive'];
+		$sql="UPDATE user SET archive = 0 WHERE userID = $userID";
+		dbConnect()->query($sql);
+
+		// redirect
+		$url=site_url("admin-main-page");
+		wp_redirect($url);
+		exit();
+	}
+	elseif ($status=="archive") {
+		$userID=$values['client'];
+		$sql="UPDATE user SET archive = 1 WHERE userID = $userID";
+		dbConnect()->query($sql);
+
+		// redirect
+		$url=site_url("admin-main-page");
+		wp_redirect($url);
+		exit();
+	}
 }
 
 /**

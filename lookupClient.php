@@ -3,10 +3,9 @@
 // essential functions
 include("loomFunctions.php");
 
-if(array_key_exists('ClientDelete',$_POST)){
+if(array_key_exists('ClientArchive',$_POST)){
 	$values = $_POST;
-    //saveWorkout($values);
-    print_r($values);
+    setArchive($values, "archive");
 }
 
 get_header();
@@ -23,7 +22,9 @@ get_header();
 		showAll("all", "none");
         while ($testArray=mysqli_fetch_array($result))
         {
-            echo "<option value='".$testArray['userID']."'>".$testArray['firstName'].' '.$testArray['lastName']."</option>";
+            if ($testArray['archive'] == 0) {
+                echo "<option value='".$testArray['userID']."'>".$testArray['firstName'].' '.$testArray['lastName']."</option>";
+            }
         }
 		?>
         </select>
@@ -40,8 +41,7 @@ get_header();
         <button type="submit" value="ClientWorkout" formaction=<?=site_url("add-workout")?>>Add Workout</button>
         <br>
         <br>
-        <button type="submit" value="ClientDelete" name="ClientDelete">Delete Client</button>
-
+        <button type="submit" value="ClientArchive" name="ClientArchive">Archive Client</button>
     </fieldset>
 </form>
 <?php get_footer(); ?>
