@@ -78,8 +78,8 @@ get_header();
         <label for="bodyFat">Body fat:</label>
         <input type="number" step=".01" name="bodyFat" id="bodyFat" value="<?=$bodyFat?>">
         <br>
+        <br>
 
-        <label for="clientName">Client Name:</label>
         <button type="submit" name="clientConfirm" value="clientConfirm">Confirm Changes</button>
         <br>
 

@@ -27,6 +27,10 @@ $GLOBALS['result'] = dbConnect()->query($sql);
 
 // what do i want to display? keep it simple, just the most recent workout then
 ?>
+<form>
+<button type="submit" name="back" value="back" formaction=<?=site_url("lookup-client")?>>Back to Lookup</button>
+</form>
+<br>
     <table style="width:100%">
   <tr>
     <th>ID</th>    
