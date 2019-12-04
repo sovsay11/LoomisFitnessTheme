@@ -17,7 +17,7 @@ $sessionID = $sessionArray['newSessionID'];
 //echo ($sessionID);
 
 //select by client id
-$sql = "SELECT * FROM workout WHERE userID = $clientID";
+$sql = "SELECT * FROM workout JOIN exercises ON workout.exerciseID = exercises.exerciseID WHERE userID = $clientID;";
 
 // select by session
 //$sql = "SELECT * FROM workout WHERE sessionID = $sessionID";
@@ -29,8 +29,9 @@ $GLOBALS['result'] = dbConnect()->query($sql);
 ?>
     <table style="width:100%">
   <tr>
-    <th>ID</th>
-    <th>Miles</th>
+    <th>ID</th>    
+	<th>Workout</th>
+	<th>Miles</th>
     <th>Reps</th>
     <th>Weight</th>
     <th>Sets</th>
@@ -39,6 +40,7 @@ $GLOBALS['result'] = dbConnect()->query($sql);
   <?php while($recentWorkout=mysqli_fetch_array($result)):?>
   <tr>
     <td><?=$recentWorkout[11]?></td>
+	<td><?=$recentWorkout[14]?></td>
     <td><?=$recentWorkout[1]?></td>
     <td><?=$recentWorkout[5]?></td>
     <td><?=$recentWorkout[6]?></td>
