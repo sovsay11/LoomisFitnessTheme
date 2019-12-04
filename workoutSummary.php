@@ -18,12 +18,14 @@ $sessionID = $sessionArray['newSessionID'];
 
 //select by client id
 $sql = "SELECT * FROM workout JOIN exercises ON workout.exerciseID = exercises.exerciseID WHERE userID = $clientID;";
+$sqlName = "SELECT firstName FROM workout JOIN user ON workout.userID = user.userID WHERE user.userID = $clientID;";
 
 // select by session
 //$sql = "SELECT * FROM workout WHERE sessionID = $sessionID";
 $GLOBALS['result'] = dbConnect()->query($sql);
-//$recentWorkout=mysqli_fetch_array($result);
-//print_r($recentWorkout);
+$GLOBALS['nameResult'] = dbConnect()->query($sqlName);
+$name=mysqli_fetch_array($nameResult);
+//print_r($name);
 
 // what do i want to display? keep it simple, just the most recent workout then
 ?>
@@ -31,6 +33,7 @@ $GLOBALS['result'] = dbConnect()->query($sql);
 <button type="submit" name="back" value="back" formaction=<?=site_url("lookup-client")?>>Back to Lookup</button>
 </form>
 <br>
+<h1><?=$name[0]?>'s Report</h1>
     <table style="width:100%">
   <tr>
     <th>ID</th>    
